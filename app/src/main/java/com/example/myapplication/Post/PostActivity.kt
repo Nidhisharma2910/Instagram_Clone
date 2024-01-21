@@ -1,8 +1,10 @@
 package com.example.myapplication.Post
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.result.contract.ActivityResultContracts
+import com.example.myapplication.HomeActivity
 import com.example.myapplication.Models.Post
 import com.example.myapplication.databinding.ActivityPostBinding
 import com.example.myapplication.utils.POST
@@ -23,7 +25,7 @@ class PostActivity : AppCompatActivity() {
             uploadImage(uri, POST_FOLDER) { url ->
                 if (it != null) {
                     binding.selectImage.setImageURI(uri)
-                    imageUrl=url
+                    imageUrl = url
                 }
 
             }
@@ -40,19 +42,26 @@ class PostActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
         binding.materialToolbar.setNavigationOnClickListener {
+            startActivity(Intent(this@PostActivity,HomeActivity::class.java))
             finish()
         }
 
         binding.selectImage.setOnClickListener {
             launcher.launch("image/*")
         }
+        binding.cancelButton.setOnClickListener {
+            startActivity(Intent(this@PostActivity,HomeActivity::class.java))
+            finish()
+        }
         binding.postButton.setOnClickListener {
-            var post: Post = Post(imageUrl!!,binding.caption.editText?.text.toString())
+            var post: Post = Post(imageUrl!!, binding.caption.editText?.text.toString())
 
             Firebase.firestore.collection(POST).document().set(post).addOnSuccessListener {
-                Firebase.firestore.collection(Firebase.auth.currentUser!!.uid).document().set(post).addOnSuccessListener{
-                    finish()
-                }
+                Firebase.firestore.collection(Firebase.auth.currentUser!!.uid).document().set(post)
+                    .addOnSuccessListener {
+                        startActivity(Intent(this@PostActivity,HomeActivity::class.java))
+                        finish()
+                    }
 
             }
         }

@@ -18,7 +18,7 @@ import com.google.firebase.ktx.Firebase
 
 
 class MyPostFragment : Fragment() {
-  private lateinit var binding: FragmentMyPostBinding
+    private lateinit var binding: FragmentMyPostBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -29,16 +29,17 @@ class MyPostFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        binding=FragmentMyPostBinding.inflate(inflater,container,false)
-        var postList=ArrayList<Post>()
-        var adapter=MyPostRvAdapter(requireContext(),postList)
-        binding.rv.layoutManager=StaggeredGridLayoutManager(3,StaggeredGridLayoutManager.VERTICAL)
-        binding.rv.adapter=adapter
+        binding = FragmentMyPostBinding.inflate(inflater, container, false)
+        var postList = ArrayList<Post>()
+        var adapter = MyPostRvAdapter(requireContext(), postList)
+        binding.rv.layoutManager =
+            StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
+        binding.rv.adapter = adapter
         Firebase.firestore.collection(Firebase.auth.currentUser!!.uid).get().addOnSuccessListener {
             var tempList = arrayListOf<Post>()
 
-            for(i in it.documents){
-                 var post:Post=i.toObject<Post>()!!
+            for (i in it.documents) {
+                var post: Post = i.toObject<Post>()!!
                 tempList.add(post)
             }
 
@@ -50,6 +51,6 @@ class MyPostFragment : Fragment() {
 
     companion object {
 
-                }
-
     }
+
+}

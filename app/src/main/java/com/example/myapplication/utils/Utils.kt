@@ -39,7 +39,7 @@ fun uploadVideo(
             }
         }
         .addOnProgressListener {
-            var uploadedValue: Long = it.bytesTransferred / it.totalByteCount
+            var uploadedValue: Long = (it.bytesTransferred / it.totalByteCount)*100
             progressDialog.setMessage("Uploaded $uploadedValue %")
         }
 

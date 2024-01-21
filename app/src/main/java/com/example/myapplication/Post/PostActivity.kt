@@ -6,13 +6,16 @@ import android.os.Bundle
 import androidx.activity.result.contract.ActivityResultContracts
 import com.example.myapplication.HomeActivity
 import com.example.myapplication.Models.Post
+import com.example.myapplication.Models.User
 import com.example.myapplication.databinding.ActivityPostBinding
 import com.example.myapplication.utils.POST
 import com.example.myapplication.utils.POST_FOLDER
+import com.example.myapplication.utils.USER_NODE
 import com.example.myapplication.utils.USER_PROFILE_FOLDER
 import com.example.myapplication.utils.uploadImage
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.toObject
 import com.google.firebase.ktx.Firebase
 
 class PostActivity : AppCompatActivity() {
@@ -42,7 +45,7 @@ class PostActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
         binding.materialToolbar.setNavigationOnClickListener {
-            startActivity(Intent(this@PostActivity,HomeActivity::class.java))
+            startActivity(Intent(this@PostActivity, HomeActivity::class.java))
             finish()
         }
 
@@ -50,20 +53,31 @@ class PostActivity : AppCompatActivity() {
             launcher.launch("image/*")
         }
         binding.cancelButton.setOnClickListener {
-            startActivity(Intent(this@PostActivity,HomeActivity::class.java))
+            startActivity(Intent(this@PostActivity, HomeActivity::class.java))
             finish()
         }
         binding.postButton.setOnClickListener {
-            var post: Post = Post(imageUrl!!, binding.caption.editText?.text.toString())
+            Firebase.firestore.collection(USER_NODE).document().get()
+                .addOnSuccessListener {
+                    var user = it.toObject<User>()!!
+                    var post: Post = Post(
+                        postUrl = imageUrl!!,
+                        caption = binding.caption.editText?.text.toString(),
+                        name =Firebase.auth.currentUser!!.uid ,
+                        time=System.currentTimeMillis().toString()
+                    )
 
-            Firebase.firestore.collection(POST).document().set(post).addOnSuccessListener {
-                Firebase.firestore.collection(Firebase.auth.currentUser!!.uid).document().set(post)
-                    .addOnSuccessListener {
-                        startActivity(Intent(this@PostActivity,HomeActivity::class.java))
-                        finish()
+                    Firebase.firestore.collection(POST).document().set(post).addOnSuccessListener {
+                        Firebase.firestore.collection(Firebase.auth.currentUser!!.uid).document()
+                            .set(post)
+                            .addOnSuccessListener {
+                                startActivity(Intent(this@PostActivity, HomeActivity::class.java))
+                                finish()
+                            }
                     }
 
-            }
+
+                }
         }
     }
 

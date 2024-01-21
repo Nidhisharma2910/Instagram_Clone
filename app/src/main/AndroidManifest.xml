@@ -12,31 +12,50 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
+
+
         <activity
-            android:name=".Post.ReelsActivity"
-            android:exported="false" />
+            android:name=".MainActivity"
+            android:exported="true" >
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+
+        </activity>
+
         <activity
-            android:name=".Post.PostActivity"
-            android:exported="false" />
+            android:name=".SignUpActivity"
+            android:exported="true" >
+        </activity>
+
         <activity
             android:name=".LoginActivity"
-            android:exported="true" />
+            android:exported="true" >
+        </activity>
+
         <activity
             android:name=".HomeActivity"
             android:exported="true"
             android:label="@string/title_activity_home">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
+
         <activity
-            android:name=".SignUpActivity"
-            android:exported="true" />
+            android:name=".Post.PostActivity"
+            android:exported="false" >
+        </activity>
+
         <activity
-            android:name=".MainActivity"
-            android:exported="true" />
+            android:name=".Post.ReelsActivity"
+            android:exported="false" >
+        </activity>
+
+
+
+
+
     </application>
 
 </manifest>

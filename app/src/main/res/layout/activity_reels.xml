@@ -14,6 +14,7 @@
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:title="New Post" />
@@ -39,9 +40,9 @@
         android:layout_marginTop="24dp"
         android:hint="Write a Cation"
         android:textColor="@android:color/darker_gray"
-        app:layout_constraintEnd_toEndOf="@+id/select_image"
-        app:layout_constraintStart_toStartOf="@+id/select_image"
-        app:layout_constraintTop_toBottomOf="@+id/select_image"
+        app:layout_constraintEnd_toEndOf="@+id/select_reel"
+        app:layout_constraintStart_toStartOf="@+id/select_reel"
+        app:layout_constraintTop_toBottomOf="@+id/select_reel"
         app:strokeColor="@color/pink">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -56,12 +57,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:layout_marginTop="168dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.842"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/caption">
+        app:layout_constraintHorizontal_bias="0.476"
+        app:layout_constraintTop_toBottomOf="@+id/caption"
+        tools:layout_editor_absoluteY="221dp">
 
         <ImageView
             android:id="@+id/imageView2"
@@ -82,13 +83,12 @@
             android:textStyle="bold" />
     </LinearLayout>
 
-
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="40dp"
         android:orientation="horizontal"
         android:padding="10dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -114,4 +114,6 @@
             android:backgroundTint="#87CEEB"
             android:text="Post" />
     </LinearLayout>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

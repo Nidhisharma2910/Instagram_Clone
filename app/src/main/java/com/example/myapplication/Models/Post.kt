@@ -3,7 +3,7 @@ package com.example.myapplication.Models
 class Post {
     var postUrl:String=""
     var caption:String=""
-    var uid:String=""
+    var name:String=""
     var time:String=""
     constructor()
     constructor(postUrl: String, caption: String) {
@@ -14,7 +14,7 @@ class Post {
     constructor(postUrl: String, caption: String, name: String, time: String) {
         this.postUrl = postUrl
         this.caption = caption
-        this.uid = name
+        this.name = name
         this.time = time
     }
 
